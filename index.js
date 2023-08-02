@@ -68,20 +68,25 @@ const randomId = () => {
 app.post('/api/persons', (request, response) => {
     const body = request.body
 
-    if (body.content) {
+    const existName = persons.find(n => n.name === body.name)
+
+    if (!body.name || !body.number) {
         return response.status(400).json({
             error: 'content missing'
         })
     }
-
-    const person = {
-        id: randomId(),
-        name: body.name,
-        number: body.number,
+    if(existName !== undefined) {
+        return response.status(400).json({
+            error: 'name must be unique'
+        })
+    } else {
+        const person = {
+            id: randomId(),
+            name: body.name,
+            number: body.number,
+        }   
+        persons = persons.concat(person)
     }
-
-    persons = persons.concat(person)
-
     response.json(body)
 })
 
