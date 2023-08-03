@@ -1,8 +1,26 @@
 const { request, response } = require('express')
 const express = require('express')
+const morgan = require('morgan')
+
 const app = express() 
 
 app.use(express.json())
+
+const morganTokens = morgan(function (tokens, req, res){
+    return [
+        tokens.method(req, res),
+        tokens.url(req, res),
+        tokens.status(req, res),
+        tokens.res(req, res, 'content-length'), '-',
+        tokens['response-time'](req, res), 'ms',
+        JSON.stringify(req.body),
+    ].join(' ')
+})
+app.use(morganTokens)
+
+const errorMorgan = morgan('combined', {
+    skip: function (req, res) { return res.statusCode < 400 }
+})
 
 let persons = [
     {
@@ -90,6 +108,7 @@ app.post('/api/persons', (request, response) => {
     response.json(body)
 })
 
+app.use(errorMorgan)
 
 const PORT = 3001
 app.listen(PORT, () => {
