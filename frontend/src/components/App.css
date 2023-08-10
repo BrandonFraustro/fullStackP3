@@ -1,0 +1,29 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  place-items: center;
+  padding: 0 0.5rem;
+}
+
+form {
+  width: 250px;
+}
+
+.inputs > div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem;
+}
