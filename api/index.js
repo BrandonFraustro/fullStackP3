@@ -18,7 +18,7 @@ const morganTokens = morgan(function (tokens, req, res){
         JSON.stringify(req.body),
     ].join(' ')
 })
-app.use(morganTokens)
+app.use(morganTokens);
 
 const errorMorgan = morgan('combined', {
     skip: function (req, res) { return res.statusCode < 400 }
