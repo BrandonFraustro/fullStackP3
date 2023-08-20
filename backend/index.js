@@ -1,11 +1,9 @@
-const { request, response } = require('express')
+require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const mongoose = require('mongoose')
-
-const url = `mongodb://fullstack:fullstack@ac-oczpbnc-shard-00-00.qzx21qr.mongodb.net:27017,ac-oczpbnc-shard-00-01.qzx21qr.mongodb.net:27017,ac-oczpbnc-shard-00-02.qzx21qr.mongodb.net:27017/phonebook?ssl=true&replicaSet=atlas-8rgob8-shard-0&authSource=admin&retryWrites=true&w=majority`;
-mongoose.connect(url)
+const Phonebook = require('./models/phonebook')
 
 const app = express() 
 
@@ -23,12 +21,6 @@ const morganTokens = morgan(function (tokens, req, res){
     ].join(' ')
 })
 app.use(morganTokens);
-
-const phonebookSchema = new mongoose.Schema({
-    name: String,
-    number: String,
-})
-const Phonebook = mongoose.model('Phonebook', phonebookSchema)
 
 const errorMorgan = morgan('combined', {
     skip: function (req, res) { return res.statusCode < 400 }
@@ -97,7 +89,7 @@ app.post('/api/persons', (request, response) => {
 
 app.use(errorMorgan)
 
-const PORT = 3001
+const PORT = process.env.PORT
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 })
