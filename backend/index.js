@@ -35,9 +35,9 @@ const errorMorgan = morgan('combined', {
 })
 
 app.get('/api/persons', (request, response) => {
-    Phonebook.find({}.then(phone => {
-        response.json(persons)
-    }))
+    Phonebook.find({}).then(phone => {
+        response.json(phone)
+    })
 })
 
 app.get('/info', (request, response) => {
