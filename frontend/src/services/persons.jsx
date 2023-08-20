@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = 'https://phonebook-backend-sooty.vercel.app/api/persons'
+const baseUrl = 'phonebook-backend-six.vercel.app/api/persons'
 
 const getAll = () => {
     return axios.get(baseUrl)
