@@ -32,13 +32,6 @@ app.get('/api/persons', (request, response) => {
     })
 })
 
-app.get('/info', (request, response) => {
-    const count = persons.length
-    const date = new Date()
-    response.send(`<p>Phonebook has info for ${count} people</p>
-    <p>${date}</p>`)
-})
-
 app.get('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id)
     const person = persons.find(person => person.id === id)
@@ -56,35 +49,23 @@ app.delete('/api/persons/:id', (request, response) => {
     response.status(204).end()
 })
 
-const randomId = () => {
-    const idR = Math.floor(Math.random() * (1000 - 100) + 100)
-    const existId = persons.find(n => n.id === idR)
-    return idR
-}
-
 app.post('/api/persons', (request, response) => {
     const body = request.body
-
-    const existName = persons.find(n => n.name === body.name)
 
     if (!body.name || !body.number) {
         return response.status(400).json({
             error: 'content missing'
         })
     }
-    if(existName !== undefined) {
-        return response.status(400).json({
-            error: 'name must be unique'
-        })
-    } else {
-        const person = {
-            id: randomId(),
-            name: body.name,
-            number: body.number,
-        }   
-        persons = persons.concat(person)
-    }
-    response.json(body)
+
+    const person = new Phonebook({
+        name: body.name,
+        number: body.number,
+    })
+    console.log(person);
+    person.save().then(savedPerson => {
+        response.json(savedPerson)
+    })   
 })
 
 app.use(errorMorgan)
