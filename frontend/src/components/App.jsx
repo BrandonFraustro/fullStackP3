@@ -46,7 +46,9 @@ const App = () => {
           }, 4000);
           }
         )
-        .catch(e => console.log(e))
+        .catch(e => {
+          console.log(e.response.data)
+        })
     } else {
       const existingPerson = persons.find(person => person.name === found)
       const personObject = {
