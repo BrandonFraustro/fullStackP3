@@ -51,7 +51,7 @@ const App = () => {
           setTimeout(() => {
             setErrorMessage(null)
           }, 4000);
-          console.log(e.response.data)
+          console.log(e.response.data.error)
         })
     } else {
       const existingPerson = persons.find(person => person.name === found)
