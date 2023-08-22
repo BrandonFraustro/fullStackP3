@@ -47,7 +47,7 @@ const App = () => {
           }
         )
         .catch(e => {
-          setErrorMessage(e.response.data)
+          setErrorMessage(e.response.data.error)
           setTimeout(() => {
             setErrorMessage(null)
           }, 4000);
