@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { useState, useEffect } from 'react'
 import './App.css'
 import Filter from './Filter'
@@ -85,11 +84,11 @@ const App = () => {
   }
   
   const handleNameChange = (event) => {
-      setNewName(event.target.value)
+    setNewName(event.target.value)
   }
   
   const handleNumberChange = (event) => {
-      setNewNumber(event.target.value)
+    setNewNumber(event.target.value)
   }
   
   const handleSearch = (event) => {
